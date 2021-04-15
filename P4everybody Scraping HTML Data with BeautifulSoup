@@ -1,0 +1,24 @@
+import urllib.request, urllib.parse, urllib.error
+from bs4 import BeautifulSoup
+import ssl
+
+#ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+
+url = input('Enter url:')
+html = urllib.request.urlopen(url).read() #requesting urllib to open input url web page
+soup = BeautifulSoup(html,"html.parser") #beautifulsoup is parsing web page, "html.parser" is needed to avaoid problems in other systems
+
+#retrive span tags
+tags = soup('span') #'span' refers to span tags
+count = 0
+for tag in tags:
+
+   content = ('Contents:',tag.contents[0])
+   v = int(content[1])     #this is a tuple type and index 1
+   count = count+v
+
+print(count)
