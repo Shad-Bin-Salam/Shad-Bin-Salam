@@ -1,0 +1,23 @@
+import urllib
+import xml.etree.ElementTree as ET
+from urllib import request
+
+url = input('Enter: ')
+print('Retrieving',url)
+uh = request.urlopen(url)
+data = uh.read()
+print('Retrived', len(data), 'characters')
+
+tree = ET.fromstring(data)
+result = tree.findall('comments/comment')
+counts = 0
+sum = 0
+
+for i in result:
+    x = int(i.find('count').text)
+    sum = sum+x
+    counts = counts+1
+
+print('Count: ',counts)
+print('Sum: ',sum)
+#this code retrieves text files from children from the tree 
